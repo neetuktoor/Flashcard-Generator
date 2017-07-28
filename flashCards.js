@@ -1,3 +1,5 @@
+//ADAAAAMMMMMMMMMMMMMM THE NESTED FUNCTIONS KEEP CRASHING MY TERMINAL!!!!!!!!!!!!!!!!!!!!!
+
 // Requiring our basic card constructor, and the inquirer package for prompts
 var basicCard = require("./basicCard");
 
@@ -87,13 +89,19 @@ function litArtQuiz(){
   });
 }
 
-function runQuiz(){
+function runQuiz() {
   inquirer.prompt({
     //insert questions here
       type:"input",
       message: clozeQuestions[currentQ].partialText,
-      name:  "individualQuestions"
+      name:  "userguess"
   }).then(function(answer){
+      if (answer.userguess === clozeQuestions[currentQ].cloze){ 
+      console.log("correct!");
+    } else {
+      console.log("incorrect!");
+    };
+  
     if(currentQ<=clozeQuestions.length){
       currentQ++;
       runQuiz();
@@ -103,9 +111,5 @@ function runQuiz(){
   })
 }
 
+
 litArtQuiz();
-
-
-  
-
-
