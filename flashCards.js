@@ -8,10 +8,6 @@ var inquirer = require("inquirer");
 // intialize variables
 var currentQ = 0;
 
-var correctAnswer = 0;
-
-var wrongAnswer = 0;
-
 // test the basic card
 // var firstPresident = new BasicCard("Who was the first president of the United States?", "George Washington");
 // console.log(firstPresident.front);
@@ -61,7 +57,7 @@ var clozeQuestions = [];
 for (var i = 0; i < questions.length; i++) {
   var j = new clozeCard(questions[i].fullText, questions[i].cloze);
   clozeQuestions.push(j);
-  console.log(clozeQuestions[i]);
+ 
 };
 
 //create a function to allow user to pick category through inquirer
@@ -83,14 +79,31 @@ function litArtQuiz(){
     if (inquirerResponse.confirm) {
       console.log("\nWelcome " + inquirerResponse.userName);
       console.log("You are ready for the Literature & Arts Quiz!\n");
-      // createLitArtCards();
-
+      runQuiz();
     }
     else {
       console.log("\nThat's okay " + inquirerResponse.userName + ", come again when you are more sure.\n");
     }
   });
 }
+
+function runQuiz(){
+  inquirer.prompt({
+    //insert questions here
+      type:"input",
+      message: clozeQuestions[currentQ].partialText,
+      name:  "individualQuestions"
+  }).then(function(answer){
+    if(currentQ<=clozeQuestions.length){
+      currentQ++;
+      runQuiz();
+    } else {
+      console.log("Game Over");
+    }
+  })
+}
+
+litArtQuiz();
 
 
   
